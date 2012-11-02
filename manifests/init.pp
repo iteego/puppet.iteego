@@ -21,7 +21,6 @@
 
 class ec2 {
 
-
     # This must include the path to the Amazon EC2 tools
     $ec2path = [
         "/usr/bin", "/bin", "/usr/sbin", "/sbin",
@@ -34,13 +33,6 @@ class ec2 {
         "EC2_CERT=/etc/puppet/aws/keys/cert.pem",
       ]
 
-
-    package {
-  		'ec2-api-tools':
-	  		ensure => present,
-		  	require => Exec['aptgetupdate'];
-    }
-
     define elasticip ($instanceid, $ip)
     {
         exec { "ec2-associate-address-$name":
@@ -48,10 +40,10 @@ class ec2 {
             onlyif      => "test $ip != $(curl -s -f http://169.254.169.254/latest/meta-data/public-ipv4)",
 
             logoutput   => on_failure,
-            environment => $ec2::ec2env,
-            path        => $ec2::ec2path,
+            environment => $ec2utils::ec2env,
+            path        => $ec2utils::ec2path,
             command     => "ec2assocaddr $ip -i $instanceid",
-            require     => Package['ec2-api-tools],
+            require     => Package["ec2-api-tools"],
         }
     }
 
