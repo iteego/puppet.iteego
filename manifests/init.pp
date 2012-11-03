@@ -124,7 +124,7 @@ class iteego {
     
     exec { 'make_swap':
       unless => "grep -q -E '^/mnt/swp' /proc/swaps",
-      path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
+      path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/files/bin'],
       logoutput => true,
       command => 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',
     }
@@ -135,7 +135,7 @@ class iteego {
     $ip_address_file = "/etc/puppet/state/$::iteego_environment/$::hostname/meta-data/local-ipv4"
     $public_hostname_file = "/etc/puppet/state/$::iteego_environment/$::hostname/meta-data/public-hostname"
 		exec { 'capture-ec2-meta-data.sh singleton':
-			path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
+			path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/files/bin'],
 			onlyif => "[ ! -e $ip_address_file ] || [ $::ipaddress_eth0 != $(cat $ip_address_file) ] || [ ! -e $public_hostname_file ] || [ $(curl http://169.254.169.254/latest/meta-data/public-hostname) != $(cat $public_hostname_file) ]",
 			logoutput => true,
 		}
@@ -145,7 +145,7 @@ class iteego {
     $ip_address_file = "/etc/puppet/state/$::iteego_environment/$::hostname/$::ec2_instance_id/meta-data/local-ipv4"
     $public_hostname_file = "/etc/puppet/state/$::iteego_environment/$::hostname/$::ec2_instance_id/meta-data/public-hostname"
 		exec { 'capture-ec2-meta-data.sh':
-			path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
+			path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/files/bin'],
 			onlyif => "[ ! -e $ip_address_file ] || [ $::ipaddress_eth0 != $(cat $ip_address_file) ] || [ ! -e $public_hostname_file ] || [ $(curl http://169.254.169.254/latest/meta-data/public-hostname) != $(cat $public_hostname_file) ]",
 			logoutput => true,
 		}
@@ -194,7 +194,7 @@ class iteego {
     $node_commit_file="/etc/puppet/state/$::iteego_environment/$::hostname/commit"
     $instance_commit_file="/etc/puppet/state/$::iteego_environment/$::hostname/$::ec2_instance_id/commit"
 
-    exec { "/etc/puppet/bin/deploy.sh":
+    exec { "/etc/puppet/files/bin/deploy.sh":
       path   => ["/bin", "/usr/bin", "/usr/sbin"],
       logoutput => true,
       onlyif => "[ -e $env_commit_file ] && ( \
