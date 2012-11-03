@@ -126,7 +126,7 @@ class iteego {
       creates => '/mnt/.swp',
       path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
       logoutput => true,
-      command 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',
+      command => 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',
     }
       
   }
