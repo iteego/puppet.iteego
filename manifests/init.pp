@@ -123,7 +123,7 @@ class iteego {
     }
     
     exec { 'make_swap':
-      unless => "grep -q -E '^/mnt/.swp' /proc/swaps",
+      unless => "grep -q -E '^/mnt/swp' /proc/swaps",
       path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
       logoutput => true,
       command => 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',

@@ -4,7 +4,8 @@
 
 if [ -f /mnt/swp ]
 then
-  /sbin/swapon /mnt/swp
+  /sbin/swapon /mnt/swp || rm -f /mnt/swp
+  rm -f /tmp/make_swap.pid
 else
   (
     dd if=/dev/zero of=/mnt/swp bs=1M count=8192
