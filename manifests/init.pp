@@ -115,7 +115,7 @@ class iteego {
     exec { 'watch_files':
       command => 'nohup watch_files.sh /etc/watch_files &>>/var/log/puppet/puppet.log &',
       logoutput => true,
-      path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
+      path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/files/bin'],
       onlyif => [
                   '[ -e /etc/watch_files ]',
                   '[ ! $(pgrep watch_files.sh) ]'
