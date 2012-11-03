@@ -121,6 +121,14 @@ class iteego {
                   '[ ! $(pgrep watch_files.sh) ]'
                 ],
     }
+    
+    exec { 'make_swap':
+      creates => '/mnt/.swp',
+      path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/bin'],
+      logoutput => true,
+      command 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',
+    }
+      
   }
 
   define capture-ec2-singleton-metadata {
