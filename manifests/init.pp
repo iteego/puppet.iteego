@@ -64,6 +64,9 @@ class iteego {
 			'xfsprogs':
 				ensure => present,
 				require => Exec['aptgetupdate'];
+			'consolekit':
+				ensure => absent,
+				require => Exec['aptgetupdate'];
 		}
 		
     # kernel settings
