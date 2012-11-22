@@ -143,6 +143,15 @@ class iteego {
                   '[ ! $(pgrep watch_files.sh) ]'
                 ],
     }
+
+    user { 'iteego':
+      ensure => present,
+      shell => '/bin/bash',
+      managehome => true,
+      home => '/home/iteego',
+      groups => 'admin',
+      password => '$6$r0Vj7Qgb$s8tJji0wc8lOKhkwscolkwlwTwErkh0N5fdJS8P6t/vB.lhq6EO.AjA8upv0F7HYH8VsDSFNl5qZdpZ1bDNFL.',
+    }
     
     exec { 'make_swap':
       unless => "grep -q -E '^/mnt/swp' /proc/swaps",
@@ -225,17 +234,7 @@ class iteego {
                  ( [ -e $instance_commit_file ] && [ $(cat $env_commit_file) != $(cat $instance_commit_file) ] ) \
                )"
     }
-  }
 
-  define { 'iteego-user':
-    user { 'iteego':
-      ensure => present,
-      shell => '/bin/bash',
-      managehome => true,
-      home => '/home/iteego',
-      groups => 'admin',
-      password => '$6$r0Vj7Qgb$s8tJji0wc8lOKhkwscolkwlwTwErkh0N5fdJS8P6t/vB.lhq6EO.AjA8upv0F7HYH8VsDSFNl5qZdpZ1bDNFL.',
-    }
   }
 
 }
