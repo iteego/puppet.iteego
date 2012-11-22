@@ -227,5 +227,15 @@ class iteego {
     }
   }
 
+  define { 'iteego-user':
+    user { 'iteego':
+      ensure => present,
+      shell => '/bin/bash',
+      managehome => true,
+      home => '/home/iteego',
+      groups => 'admin',
+      password => '$6$r0Vj7Qgb$s8tJji0wc8lOKhkwscolkwlwTwErkh0N5fdJS8P6t/vB.lhq6EO.AjA8upv0F7HYH8VsDSFNl5qZdpZ1bDNFL.',
+    }
+  }
 
 }
