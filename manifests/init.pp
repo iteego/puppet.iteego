@@ -19,7 +19,7 @@ class iteego {
   }
   
 
-  define base-ubuntu-server {
+  define debian-base-server {
 		# Packages  
 		package {
 			"ntp":
