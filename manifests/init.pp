@@ -151,15 +151,17 @@ class iteego {
       home => '/home/iteego',
       groups => 'admin',
       password => '$6$r0Vj7Qgb$s8tJji0wc8lOKhkwscolkwlwTwErkh0N5fdJS8P6t/vB.lhq6EO.AjA8upv0F7HYH8VsDSFNl5qZdpZ1bDNFL.',
-    }
-    
+    } 
+      
+  }
+
+  define extra-swap {
     exec { 'make_swap':
       unless => "grep -q -E '^/mnt/swp' /proc/swaps",
       path   => ['/bin', '/usr/bin', '/usr/sbin', '/etc/puppet/files/bin'],
       logoutput => true,
       command => 'nohup nice /etc/puppet/modules/iteego/files/bin/make_swap.sh',
     }
-      
   }
 
   define capture-ec2-singleton-metadata {
